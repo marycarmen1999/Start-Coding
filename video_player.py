@@ -32,24 +32,26 @@ class VideoPlayer:
         """
 
         """print("play_video needs implementation")"""
-        video= self._video_library.get_video(video_id)
-        try:
-            if video_id != None:
-                print(f'Playing video: {video.title}')
 
-                self.Video_Playing_id = video_id
-            else:
-                print(f'Stopping video: {self.Video_Name(self.Video_Playing_id)} ')
-                print(f'Playing video: {video.title}')
-                self.Video_Playing_id = video_id
-                
-        except:
-            print('Cannot play video: Video does not exist')
+        video = self._video_library.get_video(video_id)
+        if video is None:
+          print("Cannot play video: Video does not exist")
+          return
+        
+        if self.now_playing:
+          self.stop_video()
+        print(f"Playing video: {video.title}")
+        self.now_playing = video
 
     def stop_video(self):
         """Stops the current video."""
+        if self.now_playing is None:
+          print("Cannot stop video: No video is currently playing")
+          return
+        print(f"Stopping video: {self.now_playing.title}")
+        self.now_playing = None
+        self._paused = False
 
-        print("stop_video needs implementation")
 
     def play_random_video(self):
         """Plays a random video from the video library."""
