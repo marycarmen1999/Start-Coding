@@ -55,13 +55,27 @@ class VideoPlayer:
 
     def play_random_video(self):
         """Plays a random video from the video library."""
-
-        print("play_random_video needs implementation")
+        all_videos = self._video_library.get_all_videos()
+        all_videos.sort(key=lambda x: x.title)
+        random_idx = random.randrange(0,len(all_videos)-1)
+        video_id = all_videos[random_idx].video_id
+        
+        self.play_video(video_id)
+        
+        #print("play_random_video needs implementation")
 
     def pause_video(self):
         """Pauses the current video."""
+        video = self.now_playing
 
-        print("pause_video needs implementation")
+        if video is None:
+            print("Cannot pause video: No video is currently playing")
+            return
+        if self._pause is True:
+            print(f"Video already paused: {video.title}")
+        else:
+            print(f"Pausing video: {video.title}")
+            self._pause = True
 
     def continue_video(self):
         """Resumes playing the current video."""
