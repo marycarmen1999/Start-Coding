@@ -8,6 +8,8 @@ class VideoPlayer:
 
     def __init__(self):
         self._video_library = VideoLibrary()
+        self.now_playing = None
+        self._pause = False
 
     def number_of_videos(self):
         num_videos = len(self._video_library.get_all_videos())
